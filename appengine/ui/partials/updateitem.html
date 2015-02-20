@@ -1,0 +1,85 @@
+<div class="container">
+  <header>
+    <h3 align="center">Item update</h3>
+  </header>
+  
+  <form name="myForm" class="form-horizontal"> 
+    <div class="form-group required">
+      <label for="name" class="col-xs-2 control-label">Name</label>
+      <div class="col-xs-6">
+        <input data-ng-model="item.name" type="text"
+               class="form-control" required="required"
+               placeholder="Item Name" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="count" class="col-xs-2 control-label">Count</label>
+      <div class="col-xs-3">
+        <input data-ng-model="item.count" type="number" class="form-control"
+               placeholder="Count" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="size" class="col-xs-2 control-label">Size</label>
+      <div class="col-xs-4">
+        <input data-ng-model="item.size" type="text" class="form-control"
+               placeholder="Size (e.g. 1 Gallon)" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="comments" class="col-xs-2 control-label">Comments</label>
+      <div class="col-xs-6">
+        <input data-ng-model="item.comments" type="text" class="form-control"
+               placeholder="Comments" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="categories" class="col-sm-2 control-label">Categories</label>
+      <div class="nullable col-xs-10">
+        <select ng-model="item.category" ng-options="c.name for c in
+                                                        categories | orderBy:'name'">
+	      <option value="">-- choose categories --</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="stores" class="col-sm-2 control-label">Stores</label>
+      <div class="nullable col-xs-10">
+        <select multiple ng-model="item.stores" ng-options="s.name
+                                                               for s in
+                                                               stores | orderBy:'name'">
+	      <option value="">-- choose store --</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="in_slist" class="col-sm-2 control-label">Add to
+        shopping list</label>
+      <div class="col-xs-10">
+        <input type="checkbox" data-ng-model="item.in_slist"
+               />
+      </div>
+    </div>
+
+    <div><font color=red>{{rest_error_message}}</font></div>
+
+    <div class="form-group">
+      <button id="submitItem" class="btn btn-primary col-sm-offset-2" type="button" 
+              data-ng-click="cancelUpdate()">Cancel</button>
+      
+      <button id="submitItem" class="btn btn-success" type="button" 
+              data-ng-disabled="!item.name"
+              data-ng-click="updateItem()">Update</button>
+
+      <button id="deleteItem" class="btn btn-danger"
+                data-ng-click="deleteItem(item.id)">Delete item</button>
+    </div>
+
+  </form>
+</div>

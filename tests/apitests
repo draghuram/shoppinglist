@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+SCRIPT_PATH=`which $0` 
+export APITESTS_DIR=`dirname $SCRIPT_PATH` 
+APITESTS_SRC_DIR=$APITESTS_DIR/src
+APITESTS_CLASSES_DIR=$APITESTS_DIR/classes
+APITESTS_CONFIG_DIR=$APITESTS_DIR/config
+CLASSPATH_CACHE=$APITESTS_DIR/.apitests_classpath
+POM_FILE=$APITESTS_DIR/pom.xml
+
+if [ -f $CLASSPATH_CACHE -a -s $CLASSPATH_CACHE -a $CLASSPATH_CACHE -nt $POM_FILE ]
+then
+    export CLASSPATH=$CLASSPATH:`cat $CLASSPATH_CACHE`
+else
+    APITESTS_CLASSPATH=`(cd $APITESTS_DIR; \mvn dependency:build-classpath | grep -A 1 "Dependencies classpath:" | tail -1)`
+    echo -n $APITESTS_CLASSPATH > $CLASSPATH_CACHE
+    export CLASSPATH=$CLASSPATH:$APITESTS_CLASSPATH
+fi
+
+\rm -rf $APITESTS_CLASSES_DIR && \
+groovyc -d $APITESTS_CLASSES_DIR `find $APITESTS_SRC_DIR -iname "*.groovy"` && \
+     groovy -classpath $CLASSPATH:$APITESTS_CLASSES_DIR -Dlogback.configurationFile=$APITESTS_CONFIG_DIR/logback.xml \
+     $APITESTS_OPTS -Dapitests.dir=$APITESTS_DIR $APITESTS_SRC_DIR/main.groovy "$@"
+
+
+

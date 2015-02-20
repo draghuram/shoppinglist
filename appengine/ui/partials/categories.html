@@ -1,0 +1,35 @@
+<div class="categories view">
+    <div class="container">
+        <header>
+            <h3 align="center">Categories</h3>
+        </header>
+
+        <br />
+        <br />
+        
+        <div class="row">
+          <div class="span3">
+            <input data-ng-model="newCategory.name" type="text"
+                   placeholder="Category Name">
+            <button id="submitCategory" class="btn btn-primary" type="button" 
+                    data-ng-disabled="!newCategory.name"
+                    data-ng-click="insertCategory()">Add</button>
+          </div>
+        </div>
+        <br />
+
+        <div><font color=red>{{rest_error_message}}</font></div>
+        <br />
+
+        <ul>
+          <li data-ng-repeat="category in categories | orderBy:'name'">
+
+            <a ng-href="#/categories/updatecategory/{{category.id}}"
+               data-ng-click="updateCategory(category)">
+              {{category.name}}
+            </a>
+
+          </li>
+        </ul>
+    </div>
+</div>

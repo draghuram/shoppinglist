@@ -1,0 +1,35 @@
+<div class="stores view">
+    <div class="container">
+        <header>
+            <h3 align="center">Stores</h3>
+        </header>
+
+        <br />
+        <br />
+        
+        <div class="row">
+            <input data-ng-model="newStore.name" type="text"
+                   placeholder="Store Name">
+
+            <button id="submitStore" class="btn btn-primary" type="button" 
+                    data-ng-disabled="!newStore.name"
+                    data-ng-click="insertStore()">Add</button>
+        </div>
+        <br />
+
+        <div><font color=red>{{rest_error_message}}</font></div>
+        <br />
+
+        <ul>
+          <li data-ng-repeat="store in stores
+                              | orderBy:'name'"> 
+
+            <a ng-href="#/stores/updatestore/{{store.id}}"
+               data-ng-click="updateStore(store)">
+              {{store.name}}
+            </a>
+
+          </li>
+        </ul>
+    </div>
+</div>

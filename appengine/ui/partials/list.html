@@ -1,0 +1,61 @@
+<div class="items view">
+  <header>
+    <h3 align="center">Shopping List</h3>
+  </header>
+  <br />
+  <div><font color=red>{{rest_error_message}}</font></div>
+  <br />
+
+  &nbsp; &nbsp;
+  <div class="btn-group"> 
+    <button id="clear" class="btn btn-lg" type="button" 
+            data-ng-disabled="!selectedItems"
+		    data-ng-click="removeItemsFromShoppingList()">Clear
+		    selected items
+    </button>
+  </div>
+
+  &nbsp; &nbsp; &nbsp;
+  <select ng-change="processStoreSelection(store)"
+          ng-model="store" ng-options="s.name for s in stores |
+                                       orderBy:'name'"> 
+	<option value="">All Stores</option>
+  </select>
+  
+  <br />
+  
+  <ul>
+    <li ng-repeat="(category, items_by_category) in items">
+      <div class="category"> {{category}} </div>
+
+      <ul>
+        <li ng-repeat="item in items_by_category">
+          <input type="checkbox" value={{item.id}} 
+                 ng-checked="selectedItems.indexOf(item.id) > -1"
+                 ng-click="toggleItemSelection(item.id)">
+          
+          &nbsp;
+
+          <button id="clearitem" type="button" class="btn btn-sm"
+		          data-ng-click="removeItemFromShoppingList(item)">
+            
+            <span class="glyphicon glyphicon-scissors"
+                  aria-hidden="true"></span>
+
+          </button>
+
+          &nbsp;
+          
+          <a ng-href="#/items/updateitem/{{item.id}}"
+             data-ng-click="updateItem(item)">
+
+            {{item.name}}
+            
+          </a>
+          {{item.description}}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+

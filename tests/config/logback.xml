@@ -1,0 +1,21 @@
+<configuration>
+
+  <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>${apitests_logs_dir:-/tmp}/apitests_log_${bySecond}.txt</file>
+    <encoder>
+      <pattern>%date %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <root level="DEBUG">
+    <appender-ref ref="FILE" />
+  </root>
+</configuration>

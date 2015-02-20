@@ -1,0 +1,77 @@
+<div class="items view">
+  <header>
+    <h3 align="center">Items</h3>
+  </header>
+  <br />
+  <div><font color=red>{{rest_error_message}}</font></div>
+  <br />
+
+  &nbsp;
+  &nbsp;
+  <input ng-model="itemFilter">
+  &nbsp;
+  <span class="glyphicon glyphicon-search"
+        aria-hidden="true"></span>
+  <br />
+  <br />
+
+  &nbsp;
+  &nbsp;
+  <button id="add_to_list" class="btn btn-lg" type="button" 
+		  data-ng-click="addItemsToShoppingList()">Add to shopping
+		  list</button>
+
+  &nbsp; &nbsp; &nbsp;
+  <select ng-change="processStoreSelection(store)"
+          ng-model="store" ng-options="s.name for s in stores |
+                                       orderBy:'name'"> 
+	<option value="">All Stores</option>
+  </select>
+
+  <br />
+  <br />
+
+  <ul>
+    <li ng-repeat="(category, items_by_category) in items">
+      <div class="category"> {{category}} </div>
+
+      <ul>
+        <li ng-repeat="item in items_by_category | filter: itemFilter">
+          <input type="checkbox" value={{item.id}} 
+                 ng-checked="selectedItems.indexOf(item.id) > -1"
+                 ng-click="toggleItemSelection(item.id)">
+          
+          &nbsp;
+
+          <span ng-switch on="item.in_slist">
+            <button ng-switch-when="false" id="addItem" type="button" class="btn btn-sm"
+		            data-ng-click="addItemToShoppingList(item)">
+              
+              <span class="glyphicon glyphicon-plus"
+                    aria-hidden="true"></span>
+              
+            </button>
+            
+            <button ng-switch-when="true" id="removeItem" type="button" class="btn btn-sm"
+		            data-ng-click="removeItemFromShoppingList(item)">
+              
+              <span class="glyphicon glyphicon-scissors"
+                    aria-hidden="true"></span>
+            </button>
+          </span>
+
+          &nbsp;
+              
+          <a ng-href="#/items/updateitem/{{item.id}}"
+             data-ng-click="updateItem(item)">
+
+            {{item.name}}
+            
+          </a>
+          {{item.description}}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+

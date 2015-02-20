@@ -1,0 +1,19 @@
+application: shoppinglist-demo
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+
+- url: /api/.*
+  script: backend.main.application
+
+- url: /ui
+  static_dir: ui
+
+- url: /
+  static_files: index.html
+  upload: index.html
+
+
