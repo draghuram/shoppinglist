@@ -1,11 +1,4 @@
 
-/*
- * When an entity (such as store or category) is added or deleted, the corresponding
- * controller tries to update the view by fetching the collection again. How ever,
- * this fetch (GET) operation is returning old collection when dev_appserver is used.
- * How ever, the update is working fine on GAE. 
-*/
-
 app.controller('NavbarController', function ($scope, $location) {
     $scope.getClass = function (path) {
         if ($location.path().substr(0, path.length) == path) {
