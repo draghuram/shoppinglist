@@ -8,12 +8,18 @@ handlers:
 
 - url: /api/.*
   script: backend.main.application
+  login: admin
+  secure: always
 
 - url: /ui
   static_dir: ui
+  login: admin
+  secure: always
 
 - url: /
   static_files: index.html
   upload: index.html
+  login: admin
+  secure: always
 
 
