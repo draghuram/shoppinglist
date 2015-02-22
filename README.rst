@@ -54,6 +54,42 @@ Implementation Details
 - To test locally, do ``scripts/dev_setup.sh`` first. This will remove
   the login requirement making local testing easier. 
 
+Hosting your own instance
+=========================
+
+Since this is a `Google App Engine`_ project, it is very simple to
+host your own instance. Here are the steps you need to follow in this
+regard: 
+
+- You can start by cloning this repo locally. How ever, a
+  much better option is to `fork this repo
+  <https://help.github.com/articles/fork-a-repo/>`_.  Forking allows
+  you to submit pull requests in future.
+
+- Download and install `Google App Engine`_ SDK from
+  https://cloud.google.com/appengine/downloads. 
+
+- Register your own app at https://appengine.google.com/. You just
+  need to choose an available name and accept defaults for everything
+  else. 
+
+- Once you have the code locally and an appengine application-id (say,
+  "mylist") ready, open the file ``appengine/production.app.yaml`` and
+  replace ``shoppinglist42`` in the first line with your
+  application-id. So the first line now looks like so::
+    
+    application: mylist
+
+- Run ``./scripts/app_update.sh`` which uploads the application to App
+  Engine (you need to provide credentials). The script uses
+  ``appcfg.py`` from App Engine SDK.  
+
+- Now, you should be able to use your very own instance. If you
+  want to let someone else access your instance, just add
+  that person as admin to the App Engine project. 
+
+- Have fun!
+
 Future
 ======
 
